@@ -1,4 +1,3 @@
 rootProject.name = 'security'
 
-include ':applications:app-session'
-include ':components:component-session'
+include 'session'
