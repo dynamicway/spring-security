@@ -12,8 +12,7 @@ import static org.springframework.http.HttpMethod.POST;
 public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
+        http.authorizeRequests()
                 .antMatchers(POST, "/users").permitAll();
     }
 }
