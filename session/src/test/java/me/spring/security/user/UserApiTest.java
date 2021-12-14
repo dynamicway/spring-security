@@ -1,34 +1,34 @@
 package me.spring.security.user;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = {UserSecurityConfig.class, UserApi.class})
+@WebAppConfiguration
 class UserApiTest {
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
+    private final MockMvc mockMvc;
 
-    private final MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-            .apply(springSecurity())
-            .build();
+    public UserApiTest(WebApplicationContext webApplicationContext) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
+                .build();
+    }
 
     @Test
     void registerUser_status_isCreated() throws Exception {
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(post("/users"))
                 .andExpect(status().isCreated());
     }
 }
