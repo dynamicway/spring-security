@@ -36,7 +36,6 @@ class UserApiTest {
     @Test
     void registerUser_status_isCreated() throws Exception {
         mockMvc.perform(post("/users")
-                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\n" +
                                 "    \"name\": \"userName\",\n" +
@@ -50,7 +49,6 @@ class UserApiTest {
     @Test
     void registerUser_callsRegisterUser_inUserService() throws Exception {
         mockMvc.perform(post("/users")
-                .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "    \"name\": \"userName\",\n" +
