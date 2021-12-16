@@ -80,12 +80,13 @@ class UserApiTest {
     @WithMockUser(roles = "ADMIN")
     void getUsers_status_isOk_when_admin() throws Exception {
         given(spyUserService.getUsers()).willReturn(List.of(
-                new GetUser("name1", "email1"),
-                new GetUser("name2", "email2"),
-                new GetUser("name3", "email3")
+                new GetUser(1, "name1", "email1"),
+                new GetUser(2, "name2", "email2"),
+                new GetUser(3, "name3", "email3")
         ));
         mockMvc.perform(get("/users"))
                 .andExpect(jsonPath("$.size()").value(3))
+                .andExpect(jsonPath("$[1].id").value(2))
                 .andExpect(jsonPath("$[1].name").value("name2"))
                 .andExpect(jsonPath("$[1].email").value("email2"))
                 .andExpect(status().isOk());
