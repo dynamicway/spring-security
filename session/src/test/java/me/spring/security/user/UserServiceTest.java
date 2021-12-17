@@ -1,5 +1,6 @@
 package me.spring.security.user;
 
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,6 +34,7 @@ class UserServiceTest {
 
     @Test
     void getUsers_callsFindAll_inUserRepository() {
+        spyUserRepository.findAll_returns = Lists.emptyList();
         userService.getUsers();
         assertThat(spyUserRepository.isCalled_findAll).isTrue();
     }
