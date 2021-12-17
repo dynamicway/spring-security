@@ -65,4 +65,15 @@ class AuthenticationProviderTest {
                 .hasMessage("invalid password");
     }
 
+    @Test
+    void supports_returnsTrue_when_arguments_instanceOfUsernamePasswordAuthenticationToken() {
+        boolean supports_returns = authenticationProvider.supports(UsernamePasswordAuthenticationToken.class);
+        assertThat(supports_returns).isTrue();
+    }
+
+    @Test
+    void supports_returnsFalse_when_arguments_notInstanceOfUsernamePasswordAuthenticationToken() {
+        boolean supports_returns = authenticationProvider.supports(Authentication.class);
+        assertThat(supports_returns).isFalse();
+    }
 }
