@@ -1,6 +1,8 @@
 package me.spring.security.config;
 
 import lombok.RequiredArgsConstructor;
+import me.spring.security.error.NotFoundEntityException;
+import me.spring.security.user.UserEntity;
 import me.spring.security.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,8 +17,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        userRepository.findByName(username);
-        return null;
+        UserEntity userEntity = userRepository.findByName(username)
+                .orElseThrow(() -> new NotFoundEntityException("not exists user"));
+        return new UserDetailsImpl(userEntity);
     }
 
 }
