@@ -10,15 +10,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AttemptAuthenticationTokenProvider extends UsernamePasswordAuthenticationFilter {
+public class AuthenticationTokenProvider extends UsernamePasswordAuthenticationFilter {
 
-    public AttemptAuthenticationTokenProvider(AuthenticationManager authenticationManager) {
+    public AuthenticationTokenProvider(AuthenticationManager authenticationManager) {
         setAuthenticationManager(authenticationManager);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         validateRequest(request);
+        UsernamePasswordAuthenticationToken attemptAuthenticationToken = createAttemptAuthenticationToken(request);
+        return getAuthenticationManager().authenticate(attemptAuthenticationToken);
+    }
+
+    private UsernamePasswordAuthenticationToken createAttemptAuthenticationToken(HttpServletRequest request) {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
         return new UsernamePasswordAuthenticationToken(id, password);
