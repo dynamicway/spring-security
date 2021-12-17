@@ -2,7 +2,7 @@ package me.spring.security.user;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class RegisterUserRequestTest {
 
@@ -13,10 +13,8 @@ class RegisterUserRequestTest {
                 "password",
                 "email");
         UserEntity toEntity_returns = registerUserRequest.toEntity();
-        assertSoftly(s -> {
-            s.assertThat(toEntity_returns.getName()).isEqualTo("name");
-            s.assertThat(toEntity_returns.getPassword()).isEqualTo("password");
-            s.assertThat(toEntity_returns.getEmail()).isEqualTo("email");
-        });
+        assertThat(toEntity_returns.getName()).isEqualTo("name");
+        assertThat(toEntity_returns.getPassword()).isEqualTo("password");
+        assertThat(toEntity_returns.getEmail()).isEqualTo("email");
     }
 }

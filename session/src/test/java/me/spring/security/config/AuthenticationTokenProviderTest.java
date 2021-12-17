@@ -15,7 +15,7 @@ import org.springframework.security.core.Authentication;
 
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class AuthenticationTokenProviderTest {
@@ -54,12 +54,10 @@ class AuthenticationTokenProviderTest {
         givenRequest.addParameter("password", "password");
         spyAuthenticationManager.authenticate_returns = new UsernamePasswordAuthenticationToken("id", "password");
         Authentication authentication = authenticationTokenProvider.attemptAuthentication(givenRequest, new MockHttpServletResponse());
-        assertSoftly(s -> {
-            s.assertThat(authentication).isInstanceOf(UsernamePasswordAuthenticationToken.class);
-            s.assertThat(authentication.getPrincipal()).isEqualTo("id");
-            s.assertThat(authentication.getCredentials()).isEqualTo("password");
-            s.assertThat(authentication.isAuthenticated()).isFalse();
-        });
+        assertThat(authentication).isInstanceOf(UsernamePasswordAuthenticationToken.class);
+        assertThat(authentication.getPrincipal()).isEqualTo("id");
+        assertThat(authentication.getCredentials()).isEqualTo("password");
+        assertThat(authentication.isAuthenticated()).isFalse();
     }
 
     @Test
@@ -68,12 +66,10 @@ class AuthenticationTokenProviderTest {
         givenRequest.addParameter("id", "id");
         givenRequest.addParameter("password", "password");
         authenticationTokenProvider.attemptAuthentication(givenRequest, new MockHttpServletResponse());
-        assertSoftly(s -> {
-            s.assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication).isInstanceOf(UsernamePasswordAuthenticationToken.class);
-            s.assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication.getPrincipal()).isEqualTo("id");
-            s.assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication.getCredentials()).isEqualTo("password");
-            s.assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication.isAuthenticated()).isFalse();
-        });
+        assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication).isInstanceOf(UsernamePasswordAuthenticationToken.class);
+        assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication.getPrincipal()).isEqualTo("id");
+        assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication.getCredentials()).isEqualTo("password");
+        assertThat(spyAuthenticationManager.authenticate_argumentsAuthentication.isAuthenticated()).isFalse();
     }
 
 }

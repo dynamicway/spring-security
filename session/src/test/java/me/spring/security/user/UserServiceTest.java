@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 class UserServiceTest {
 
@@ -25,11 +24,9 @@ class UserServiceTest {
         RegisterUserRequest givenRegisterUserRequest = new RegisterUserRequest("name", "password", "email");
         userService.registerUser(givenRegisterUserRequest);
 
-        assertSoftly(s -> {
-            s.assertThat(spyUserRepository.save_arguments.getName()).isEqualTo("name");
-            s.assertThat(spyUserRepository.save_arguments.getPassword()).isEqualTo("password");
-            s.assertThat(spyUserRepository.save_arguments.getEmail()).isEqualTo("email");
-        });
+        assertThat(spyUserRepository.save_arguments.getName()).isEqualTo("name");
+        assertThat(spyUserRepository.save_arguments.getPassword()).isEqualTo("password");
+        assertThat(spyUserRepository.save_arguments.getEmail()).isEqualTo("email");
     }
 
     @Test
