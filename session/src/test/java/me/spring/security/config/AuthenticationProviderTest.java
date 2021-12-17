@@ -76,4 +76,5 @@ class AuthenticationProviderTest {
         boolean supports_returns = authenticationProvider.supports(Authentication.class);
         assertThat(supports_returns).isFalse();
     }
+
 }
