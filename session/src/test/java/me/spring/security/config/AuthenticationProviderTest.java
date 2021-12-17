@@ -3,13 +3,11 @@ package me.spring.security.config;
 import me.spring.security.config.testdouble.SpyUserDetailsService;
 import me.spring.security.error.BadCredentialException;
 import me.spring.security.user.UserEntity;
+import me.spring.security.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -26,14 +24,18 @@ class AuthenticationProviderTest {
     }
 
     private UserDetailsImpl createUserDetailsImpl() {
+        UserEntity userEntity = new UserEntity(
+                1L,
+                "name",
+                "password",
+                "email"
+        );
+        userEntity.getRoles().add(new UserRole(
+                1L,
+                UserRole.Role.USER
+        ));
         return new UserDetailsImpl(
-                new UserEntity(
-                        1L,
-                        "name",
-                        "password",
-                        "email"
-                ),
-                List.of(new SimpleGrantedAuthority("USER"))
+                userEntity
         );
     }
 
