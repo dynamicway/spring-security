@@ -1,4 +1,4 @@
-package me.spring.security.user;
+package me.spring.security.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +16,9 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                .and().ignoring().antMatchers("/h2-console/**");
+        web.ignoring()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                .antMatchers("/h2-console/**");
     }
 
     @Override
@@ -25,8 +26,9 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(GET, "/users").hasRole("ADMIN")
+                .antMatchers(GET, "/users/**").hasRole("ADMIN")
                 .antMatchers(POST, "/users").permitAll()
         ;
     }
+
 }
