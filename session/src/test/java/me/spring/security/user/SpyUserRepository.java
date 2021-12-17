@@ -13,11 +13,18 @@ public class SpyUserRepository implements UserRepository {
     public UserEntity save_arguments;
     public boolean isCalled_findAll;
     public List<UserEntity> findAll_returns;
+    public String findByName_arguments;
 
     @Override
     public List<UserEntity> findAll() {
         isCalled_findAll = true;
         return findAll_returns;
+    }
+
+    @Override
+    public UserEntity findByName(String name) {
+        findByName_arguments = name;
+        return null;
     }
 
     @Override
