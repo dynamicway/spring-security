@@ -25,7 +25,7 @@ public class UserEntity {
     private String password;
     private String email;
 
-    @OneToMany(mappedBy = "userId", fetch = EAGER)
+    @OneToMany(mappedBy = "user", fetch = EAGER)
     private final List<UserRole> roles = new ArrayList<>();
 
     public UserEntity(String name, String password, String email) {

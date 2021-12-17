@@ -31,7 +31,7 @@ class AuthenticationProviderTest {
                 "email"
         );
         userEntity.getRoles().add(new UserRole(
-                1L,
+                userEntity,
                 UserRole.Role.USER
         ));
         return new UserDetailsImpl(

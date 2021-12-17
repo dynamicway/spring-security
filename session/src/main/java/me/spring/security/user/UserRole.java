@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import static javax.persistence.EnumType.*;
+import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
@@ -15,8 +16,9 @@ public class UserRole {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "user_id")
-    private long userId;
+    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = LAZY)
+    private UserEntity user;
 
     @Enumerated(STRING)
     private Role role;
@@ -25,8 +27,8 @@ public class UserRole {
         USER, ADMIN
     }
 
-    public UserRole(long userId, Role role) {
-        this.userId = userId;
+    public UserRole(UserEntity userEntity, Role role) {
+        this.user = userEntity;
         this.role = role;
     }
 }

@@ -24,11 +24,11 @@ class UserDetailsTest {
         givenUserEntity.getRoles().addAll(
                 List.of(
                         new UserRole(
-                                1L,
+                                givenUserEntity,
                                 UserRole.Role.USER
                         ),
                         new UserRole(
-                                1L,
+                                givenUserEntity,
                                 UserRole.Role.ADMIN
                         )
                 )

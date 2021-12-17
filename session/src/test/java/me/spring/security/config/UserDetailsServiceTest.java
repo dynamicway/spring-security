@@ -30,7 +30,7 @@ class UserDetailsServiceTest {
         String givenUsername = "userName";
         UserEntity givenUserEntity = new UserEntity();
         givenUserEntity.getRoles().add(new UserRole(
-                1L,
+                givenUserEntity,
                 UserRole.Role.USER
         ));
         spyUserRepository.findByName_returns = Optional.of(givenUserEntity);
