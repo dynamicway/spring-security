@@ -3,6 +3,7 @@ package me.spring.security.config;
 import me.spring.security.error.NotFoundEntityException;
 import me.spring.security.user.SpyUserRepository;
 import me.spring.security.user.UserEntity;
+import me.spring.security.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +28,12 @@ class UserDetailsServiceTest {
     @Test
     void loadUserByUsername_callsFindByName_inUserRepository() {
         String givenUsername = "userName";
-        spyUserRepository.findByName_returns = Optional.of(new UserEntity());
+        UserEntity givenUserEntity = new UserEntity();
+        givenUserEntity.getRoles().add(new UserRole(
+                1L,
+                UserRole.Role.USER
+        ));
+        spyUserRepository.findByName_returns = Optional.of(givenUserEntity);
         userDetailsService.loadUserByUsername(givenUsername);
         assertThat(spyUserRepository.findByName_arguments).isEqualTo(givenUsername);
     }
