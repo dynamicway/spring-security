@@ -18,10 +18,6 @@ public class AttemptAuthenticationTokenProvider extends UsernamePasswordAuthenti
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        return createAuthenticationToken(request);
-    }
-
-    private UsernamePasswordAuthenticationToken createAuthenticationToken(HttpServletRequest request) {
         validateRequest(request);
         String id = request.getParameter("id");
         String password = request.getParameter("password");
