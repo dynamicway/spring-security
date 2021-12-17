@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import static javax.persistence.FetchType.*;
 
 @Entity
 @NoArgsConstructor
@@ -22,6 +24,9 @@ public class UserEntity {
     private String name;
     private String password;
     private String email;
+
+    @OneToMany(mappedBy = "userId", fetch = EAGER)
+    private final List<UserRole> roles = new ArrayList<>();
 
     public UserEntity(String name, String password, String email) {
         this.name = name;
