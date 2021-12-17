@@ -14,6 +14,7 @@ public class SpyUserRepository implements UserRepository {
     public boolean isCalled_findAll;
     public List<UserEntity> findAll_returns;
     public String findByName_arguments;
+    public Optional<UserEntity> findByName_returns;
 
     @Override
     public List<UserEntity> findAll() {
@@ -22,9 +23,9 @@ public class SpyUserRepository implements UserRepository {
     }
 
     @Override
-    public UserEntity findByName(String name) {
+    public Optional<UserEntity> findByName(String name) {
         findByName_arguments = name;
-        return null;
+        return findByName_returns;
     }
 
     @Override
@@ -73,8 +74,7 @@ public class SpyUserRepository implements UserRepository {
     }
 
     @Override
-    public <S extends UserEntity> S save(S entity)
-    {
+    public <S extends UserEntity> S save(S entity) {
         this.save_arguments = entity;
         return null;
     }
