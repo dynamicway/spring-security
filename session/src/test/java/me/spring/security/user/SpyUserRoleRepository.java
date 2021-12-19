@@ -69,6 +69,7 @@ public class SpyUserRoleRepository implements UserRoleRepository{
 
     @Override
     public <S extends UserRole> List<S> saveAll(Iterable<S> entities) {
+        saveAll_arguments = (Set<UserRole>) entities;
         return null;
     }
 

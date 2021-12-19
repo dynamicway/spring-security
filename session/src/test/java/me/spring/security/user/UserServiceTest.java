@@ -12,11 +12,13 @@ class UserServiceTest {
 
     private UserService userService;
     private SpyUserRepository spyUserRepository;
+    private SpyUserRoleRepository spyUserRoleRepository;
 
     @BeforeEach
     void setUp() {
         spyUserRepository = new SpyUserRepository();
-        userService = new UserServiceImpl(spyUserRepository);
+        spyUserRoleRepository = new SpyUserRoleRepository();
+        userService = new UserServiceImpl(spyUserRepository, spyUserRoleRepository);
     }
 
     @Test
@@ -27,6 +29,22 @@ class UserServiceTest {
         assertThat(spyUserRepository.save_arguments.getName()).isEqualTo("name");
         assertThat(spyUserRepository.save_arguments.getPassword()).isEqualTo("password");
         assertThat(spyUserRepository.save_arguments.getEmail()).isEqualTo("email");
+    }
+
+    @Test
+    void registerUser_callsSaveAll_inUserRoleRepository() {
+        RegisterUserRequest givenRegisterUserRequest = new RegisterUserRequest("name", "password", "email");
+        givenRegisterUserRequest.getRoles().add(UserRole.Role.USER);
+
+        userService.registerUser(givenRegisterUserRequest);
+        assertThat(spyUserRoleRepository.saveAll_arguments.size()).isEqualTo(1);
+        assertThat(spyUserRoleRepository.saveAll_arguments).containsExactly(
+                new UserRole(
+                        givenRegisterUserRequest.toEntity(),
+                        UserRole.Role.USER
+                )
+        );
+
     }
 
     @Test
