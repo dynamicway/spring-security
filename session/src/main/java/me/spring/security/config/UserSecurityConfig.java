@@ -1,7 +1,6 @@
 package me.spring.security.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,13 +29,8 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST, "/users").permitAll()
                 .anyRequest().permitAll()
                 .and()
-                .addFilterBefore(authenticationTokenProvider(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AuthenticationTokenProvider(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
         ;
-    }
-
-    @Bean
-    public AuthenticationTokenProvider authenticationTokenProvider() throws Exception {
-        return new AuthenticationTokenProvider(authenticationManager());
     }
 
 }
