@@ -1,32 +1,33 @@
 package me.spring.security.user;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import static javax.persistence.FetchType.*;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode(of = "id")
 public class UserEntity {
+    @OneToMany(mappedBy = "user", fetch = EAGER)
+    private final List<UserRole> roles = new ArrayList<>();
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
     private String password;
     private String email;
-
-    @OneToMany(mappedBy = "user", fetch = EAGER)
-    private final List<UserRole> roles = new ArrayList<>();
 
     public UserEntity(String name, String password, String email) {
         this.name = name;
@@ -34,16 +35,4 @@ public class UserEntity {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UserEntity that = (UserEntity) o;
-        return id != null && Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
