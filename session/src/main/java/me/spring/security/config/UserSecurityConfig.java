@@ -1,16 +1,16 @@
 package me.spring.security.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
-@Configuration
 @EnableWebSecurity
 public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -28,7 +28,15 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(GET, "/users/**").hasRole("ADMIN")
                 .antMatchers(POST, "/users").permitAll()
+                .anyRequest().permitAll()
+                .and()
+                .addFilterBefore(authenticationTokenProvider(), UsernamePasswordAuthenticationFilter.class)
         ;
+    }
+
+    @Bean
+    public AuthenticationTokenProvider authenticationTokenProvider() throws Exception {
+        return new AuthenticationTokenProvider(authenticationManager());
     }
 
 }
