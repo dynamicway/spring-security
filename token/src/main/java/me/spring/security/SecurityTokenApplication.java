@@ -9,4 +9,5 @@ public class SecurityTokenApplication {
     public static void main(String[] args) {
         SpringApplication.run(SecurityTokenApplication.class, args);
     }
+
 }
