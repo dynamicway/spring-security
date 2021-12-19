@@ -29,6 +29,10 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(POST, "/users").permitAll()
                 .anyRequest().permitAll()
                 .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/logout-success")
+                .and()
                 .addFilterBefore(new AuthenticationTokenProvider(authenticationManager()), UsernamePasswordAuthenticationFilter.class)
         ;
     }
