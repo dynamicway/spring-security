@@ -14,6 +14,7 @@ public class AuthenticationTokenProvider extends UsernamePasswordAuthenticationF
 
     public AuthenticationTokenProvider(AuthenticationManager authenticationManager) {
         setAuthenticationManager(authenticationManager);
+        setFilterProcessesUrl("/login");
     }
 
     @Override
