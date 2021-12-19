@@ -27,7 +27,9 @@ public class RegisterUserRequest {
                 password,
                 email
         );
-        Set<UserRole> userRoles = roles.stream().map(role -> new UserRole(userEntity, role)).collect(Collectors.toSet());
+        Set<UserRole> userRoles = roles.stream()
+                .map(role -> new UserRole(userEntity, role))
+                .collect(Collectors.toSet());
         userEntity.getRoles().addAll(userRoles);
         return userEntity;
     }
