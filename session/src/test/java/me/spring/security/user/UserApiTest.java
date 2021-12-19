@@ -46,7 +46,8 @@ class UserApiTest {
                         .content("{" +
                                 "    \"name\": \"userName\"," +
                                 "    \"password\": \"userPassword\"," +
-                                "    \"email\": \"userEmail\"" +
+                                "    \"email\": \"userEmail\"," +
+                                "    \"roles\":  [\"USER\"]" +
                                 "}")
                 )
                 .andExpect(status().isCreated());
@@ -59,7 +60,8 @@ class UserApiTest {
                 .content("{" +
                         "    \"name\": \"userName\"," +
                         "    \"password\": \"userPassword\"," +
-                        "    \"email\": \"userEmail\"" +
+                        "    \"email\": \"userEmail\"," +
+                        "    \"roles\":  [\"USER\"]" +
                         "}")
         );
 
@@ -68,6 +70,8 @@ class UserApiTest {
                 "userPassword",
                 "userEmail"
         );
+
+        registerUser_arguments.getRoles().add(UserRole.Role.USER);
         verify(spyUserService).registerUser(registerUser_arguments);
     }
 
