@@ -11,10 +11,13 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Override
     public void registerUser(RegisterUserRequest registerUserRequest) {
-        userRepository.save(registerUserRequest.toEntity());
+        UserEntity userEntity = registerUserRequest.toEntity();
+        userRepository.save(userEntity);
+        userRoleRepository.saveAll(userEntity.getRoles());
     }
 
     @Override

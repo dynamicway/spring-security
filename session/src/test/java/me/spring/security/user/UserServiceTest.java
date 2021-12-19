@@ -1,5 +1,6 @@
 package me.spring.security.user;
 
+import me.spring.security.error.BadRequestException;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class UserServiceTest {
 
@@ -24,6 +26,7 @@ class UserServiceTest {
     @Test
     void registerUser_callsSave_inUserRepository() {
         RegisterUserRequest givenRegisterUserRequest = new RegisterUserRequest("name", "password", "email");
+        givenRegisterUserRequest.getRoles().add(UserRole.Role.USER);
         userService.registerUser(givenRegisterUserRequest);
 
         assertThat(spyUserRepository.save_arguments.getName()).isEqualTo("name");
@@ -45,6 +48,15 @@ class UserServiceTest {
                 )
         );
 
+    }
+
+    @Test
+    void registerUser_throwsBadRequestException_when_userRolesIsEmpty() {
+        RegisterUserRequest givenRegisterUserRequest = new RegisterUserRequest("name", "password", "email");
+
+        assertThatThrownBy(() -> userService.registerUser(givenRegisterUserRequest))
+                .isInstanceOf(BadRequestException.class)
+                .hasMessage("roles is empty");
     }
 
     @Test

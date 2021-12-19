@@ -7,10 +7,9 @@ import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-public class SpyUserRoleRepository implements UserRoleRepository{
-    public Set<UserRole> saveAll_arguments;
+public class SpyUserRoleRepository implements UserRoleRepository {
+    public List<UserRole> saveAll_arguments;
 
     @Override
     public List<UserRole> findAll() {
@@ -69,7 +68,7 @@ public class SpyUserRoleRepository implements UserRoleRepository{
 
     @Override
     public <S extends UserRole> List<S> saveAll(Iterable<S> entities) {
-        saveAll_arguments = (Set<UserRole>) entities;
+        saveAll_arguments = (List<UserRole>) entities;
         return null;
     }
 
