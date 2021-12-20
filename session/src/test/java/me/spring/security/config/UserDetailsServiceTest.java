@@ -1,7 +1,7 @@
 package me.spring.security.config;
 
 import me.spring.security.error.NotFoundEntityException;
-import me.spring.security.user.SpyUserRepository;
+import me.spring.security.user.testdouble.SpyUserRepository;
 import me.spring.security.user.UserEntity;
 import me.spring.security.user.UserRole;
 import org.junit.jupiter.api.BeforeEach;

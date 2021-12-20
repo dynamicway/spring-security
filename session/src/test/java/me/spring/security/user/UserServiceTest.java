@@ -1,6 +1,8 @@
 package me.spring.security.user;
 
 import me.spring.security.error.BadRequestException;
+import me.spring.security.user.testdouble.SpyUserRepository;
+import me.spring.security.user.testdouble.SpyUserRoleRepository;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

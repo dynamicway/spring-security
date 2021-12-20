@@ -1,5 +1,7 @@
-package me.spring.security.user;
+package me.spring.security.user.testdouble;
 
+import me.spring.security.user.UserRole;
+import me.spring.security.user.UserRoleRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
