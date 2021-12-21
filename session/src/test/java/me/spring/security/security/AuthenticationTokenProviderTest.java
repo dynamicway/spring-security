@@ -1,6 +1,6 @@
-package me.spring.security.config;
+package me.spring.security.security;
 
-import me.spring.security.config.testdouble.SpyAuthenticationManager;
+import me.spring.security.security.testdouble.SpyAuthenticationManager;
 import me.spring.security.error.BadRequestException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

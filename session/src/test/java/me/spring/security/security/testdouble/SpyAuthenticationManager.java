@@ -1,4 +1,4 @@
-package me.spring.security.config.testdouble;
+package me.spring.security.security.testdouble;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

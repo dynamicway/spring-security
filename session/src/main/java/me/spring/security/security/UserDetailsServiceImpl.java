@@ -1,4 +1,4 @@
-package me.spring.security.config;
+package me.spring.security.security;
 
 import lombok.RequiredArgsConstructor;
 import me.spring.security.error.NotFoundEntityException;

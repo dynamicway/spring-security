@@ -1,4 +1,4 @@
-package me.spring.security.config;
+package me.spring.security.security;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

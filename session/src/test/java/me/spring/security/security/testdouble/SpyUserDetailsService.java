@@ -1,6 +1,6 @@
-package me.spring.security.config.testdouble;
+package me.spring.security.security.testdouble;
 
-import me.spring.security.config.UserDetailsImpl;
+import me.spring.security.security.UserDetailsImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

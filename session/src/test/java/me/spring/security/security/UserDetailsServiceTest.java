@@ -1,4 +1,4 @@
-package me.spring.security.config;
+package me.spring.security.security;
 
 import me.spring.security.error.NotFoundEntityException;
 import me.spring.security.user.testdouble.SpyUserRepository;

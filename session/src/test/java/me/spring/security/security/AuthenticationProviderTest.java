@@ -1,6 +1,6 @@
-package me.spring.security.config;
+package me.spring.security.security;
 
-import me.spring.security.config.testdouble.SpyUserDetailsService;
+import me.spring.security.security.testdouble.SpyUserDetailsService;
 import me.spring.security.error.BadCredentialException;
 import me.spring.security.user.UserEntity;
 import me.spring.security.user.UserRole;
