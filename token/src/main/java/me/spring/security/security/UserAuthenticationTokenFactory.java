@@ -4,6 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface UserAuthenticationTokenFactory {
 
-    UserAuthenticationToken of(HttpServletRequest httpServletRequest);
+    UserAuthenticationToken unAuthenticatedToken(HttpServletRequest httpServletRequest);
 
 }

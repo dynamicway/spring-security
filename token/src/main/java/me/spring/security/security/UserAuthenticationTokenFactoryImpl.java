@@ -14,7 +14,7 @@ public class UserAuthenticationTokenFactoryImpl implements UserAuthenticationTok
     private final ObjectMapper objectMapper;
 
     @Override
-    public UserAuthenticationToken of(HttpServletRequest httpServletRequest) {
+    public UserAuthenticationToken unAuthenticatedToken(HttpServletRequest httpServletRequest) {
         final UserAuthenticationToken userAuthenticationToken;
         try {
             userAuthenticationToken = objectMapper.readValue(httpServletRequest.getInputStream(), UserAuthenticationToken.class);

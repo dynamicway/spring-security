@@ -21,7 +21,7 @@ class UserAuthenticationTokenFactoryTest {
     }
 
     @Test
-    void of_returnsUserAuthenticationToken() {
+    void unAuthenticationToken_returnsUserAuthenticationToken() {
         MockHttpServletRequest givenHttpRequest = new MockHttpServletRequest();
         String givenHttpBody = "{" +
                 "\"email\": \"givenEmail\"," +
@@ -30,7 +30,7 @@ class UserAuthenticationTokenFactoryTest {
         givenHttpRequest.setContent(givenHttpBody.getBytes(StandardCharsets.UTF_8));
         givenHttpRequest.setContentType(MediaType.APPLICATION_JSON.getType());
 
-        UserAuthenticationToken of_returns = userAuthenticationTokenFactory.of(givenHttpRequest);
+        UserAuthenticationToken of_returns = userAuthenticationTokenFactory.unAuthenticatedToken(givenHttpRequest);
 
         assertThat(of_returns.getEmail()).isEqualTo("givenEmail");
         assertThat(of_returns.getPassword()).isEqualTo("givenPassword");
