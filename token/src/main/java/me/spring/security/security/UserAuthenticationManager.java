@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UserAuthenticationManager implements AuthenticationManager {
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         return null;
     }
 
