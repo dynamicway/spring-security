@@ -4,12 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor
 public class UserAuthenticationToken implements Authentication {
+    private final Set<SimpleGrantedAuthority> userAuthorities = new HashSet<>();
     private String email;
     private String password;
 
@@ -35,7 +39,7 @@ public class UserAuthenticationToken implements Authentication {
 
     @Override
     public boolean isAuthenticated() {
-        return false;
+        return !userAuthorities.isEmpty();
     }
 
     @Override
