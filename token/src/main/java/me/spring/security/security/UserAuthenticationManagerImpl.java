@@ -11,7 +11,7 @@ public class UserAuthenticationManagerImpl implements UserAuthenticationManager 
 
     @Override
     public UserAuthenticationToken authenticate(UserAuthenticationToken authenticationToken) {
-        return null;
+        return userAuthenticationProvider.authenticate(authenticationToken);
     }
 
 }
