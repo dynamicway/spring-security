@@ -2,3 +2,4 @@ rootProject.name = 'security'
 
 include 'session'
 include 'token'
+include 'components:error'
