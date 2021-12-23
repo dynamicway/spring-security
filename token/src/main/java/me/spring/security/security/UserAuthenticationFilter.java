@@ -1,6 +1,6 @@
 package me.spring.security.security;
 
-import org.springframework.security.authentication.AuthenticationManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -10,18 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
+@RequiredArgsConstructor
 public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final UserAuthenticationTokenFactory userAuthenticationTokenFactory;
-
-    public UserAuthenticationFilter(AuthenticationManager authenticationManager, UserAuthenticationTokenFactory userAuthenticationTokenFactory) {
-        setAuthenticationManager(authenticationManager);
-        this.userAuthenticationTokenFactory = userAuthenticationTokenFactory;
-    }
+    private final UserAuthenticationManager userAuthenticationManagerImpl;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         final UserAuthenticationToken unAuthenticatedToken = userAuthenticationTokenFactory.unAuthenticatedToken(request);
-        return getAuthenticationManager().authenticate(unAuthenticatedToken);
+        return userAuthenticationManagerImpl.authenticate(unAuthenticatedToken);
     }
+
 }

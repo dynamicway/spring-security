@@ -20,8 +20,8 @@ class UserAuthenticationFilterTest {
         spyUserAuthenticationFactory = new SpyUserAuthenticationFactory();
         spyUserAuthenticationManager = new SpyUserAuthenticationManager();
         userAuthenticationFilter = new UserAuthenticationFilter(
-                spyUserAuthenticationManager,
-                spyUserAuthenticationFactory
+                spyUserAuthenticationFactory,
+                spyUserAuthenticationManager
         );
     }
 
