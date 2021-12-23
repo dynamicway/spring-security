@@ -1,16 +1,7 @@
 package me.spring.security.security;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
+public interface UserAuthenticationManager {
 
-@Component
-public class UserAuthenticationManager implements AuthenticationManager {
-
-    @Override
-    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
-        return null;
-    }
+    UserAuthenticationToken authenticate(UserAuthenticationToken authenticationToken);
 
 }
