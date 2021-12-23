@@ -2,10 +2,11 @@ package me.spring.security.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 
-import static javax.persistence.EnumType.*;
+import static javax.persistence.EnumType.STRING;
 
 @Entity
 @Getter
@@ -21,7 +22,17 @@ public class UserRoleEntity {
     @Enumerated(STRING)
     private Role role;
 
+    public UserRoleEntity(long userId, Role role) {
+        this.userId = userId;
+        this.role = role;
+    }
+
+    public SimpleGrantedAuthority toSimpleGrantedAuthority() {
+        return new SimpleGrantedAuthority(role.name());
+    }
+
     public enum Role {
         USER, ADMIN
     }
+
 }
