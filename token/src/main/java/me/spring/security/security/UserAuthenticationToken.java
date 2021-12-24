@@ -2,6 +2,8 @@ package me.spring.security.security;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.spring.security.user.UserEntity;
+import me.spring.security.user.UserRoleEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +18,7 @@ public class UserAuthenticationToken implements Authentication {
     private final Set<SimpleGrantedAuthority> userAuthorities = new HashSet<>();
     private String email;
     private String password;
+    private UserEntity userEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -51,4 +54,12 @@ public class UserAuthenticationToken implements Authentication {
     public String getName() {
         return null;
     }
+
+    public void applyPrincipal(UserEntity userEntity) {
+        this.userEntity = userEntity;
+        userEntity.getRoles().stream()
+                .map(UserRoleEntity::toSimpleGrantedAuthority)
+                .forEach(userAuthorities::add);
+    }
+
 }
