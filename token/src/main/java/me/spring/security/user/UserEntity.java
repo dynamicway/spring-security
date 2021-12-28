@@ -24,4 +24,10 @@ public class UserEntity {
     @OneToMany
     private final List<UserRoleEntity> roles = new ArrayList<>();
 
+    public UserEntity(String email, String password, LocalDate birth) {
+        this.email = email;
+        this.password = password;
+        this.birth = birth;
+    }
+
 }

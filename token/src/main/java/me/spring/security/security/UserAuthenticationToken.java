@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +19,7 @@ public class UserAuthenticationToken implements Authentication {
     private final Set<SimpleGrantedAuthority> userAuthorities = new HashSet<>();
     private String email;
     private String password;
+    private LocalDate birth;
     private UserEntity userEntity;
 
     @Override
@@ -37,7 +39,7 @@ public class UserAuthenticationToken implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return userEntity;
     }
 
     @Override
@@ -57,6 +59,8 @@ public class UserAuthenticationToken implements Authentication {
 
     public void applyPrincipal(UserEntity userEntity) {
         this.userEntity = userEntity;
+        email = userEntity.getEmail();
+        birth = userEntity.getBirth();
         userEntity.getRoles().stream()
                 .map(UserRoleEntity::toSimpleGrantedAuthority)
                 .forEach(userAuthorities::add);
