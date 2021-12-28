@@ -7,6 +7,7 @@ public class SpyJwtTokenManager implements JwtTokenManager {
 
     public UserAuthenticationToken generateJwt_arguments;
     public String generateJwt_returns;
+    public String valid_arguments;
 
     @Override
     public String generateJwt(UserAuthenticationToken authentication) {
@@ -16,7 +17,7 @@ public class SpyJwtTokenManager implements JwtTokenManager {
 
     @Override
     public void valid(String token) {
-
+        valid_arguments = token;
     }
 
 }
