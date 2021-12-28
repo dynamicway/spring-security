@@ -2,5 +2,6 @@ bootJar { enabled = true }
 
 dependencies {
     implementation project(':components:error')
+    implementation project(':components:util')
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 }
