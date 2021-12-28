@@ -19,7 +19,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         final UserAuthenticationToken userAuthenticationToken = (UserAuthenticationToken) authentication;
         final String jwt = jwtTokenManager.generateJwt(userAuthenticationToken);
-        response.addHeader(HttpHeaders.AUTHORIZATION, "BEARER " + jwt);
+        response.addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwt);
     }
 
 }
