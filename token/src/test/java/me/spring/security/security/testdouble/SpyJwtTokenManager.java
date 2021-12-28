@@ -6,11 +6,12 @@ import me.spring.security.security.UserAuthenticationToken;
 public class SpyJwtTokenManager implements JwtTokenManager {
 
     public UserAuthenticationToken generateJwt_arguments;
+    public String generateJwt_returns;
 
     @Override
     public String generateJwt(UserAuthenticationToken authentication) {
         generateJwt_arguments = authentication;
-        return null;
+        return generateJwt_returns;
     }
 
     @Override
