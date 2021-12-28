@@ -1,5 +1,6 @@
 package me.spring.security.user;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id"})
 public class UserEntity {
 
     @Id
