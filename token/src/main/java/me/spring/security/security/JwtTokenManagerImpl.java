@@ -6,11 +6,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import me.spring.security.util.TimeProvider;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@Component
 public class JwtTokenManagerImpl implements JwtTokenManager {
 
     private final String SECRET_KEY = "THIS_IS_SECRET_KEY";
