@@ -2,6 +2,7 @@ package me.spring.security.security;
 
 import me.spring.security.security.testdouble.SpyUserAuthenticationFactory;
 import me.spring.security.security.testdouble.SpyUserAuthenticationManager;
+import me.spring.security.security.testdouble.SpyUserAuthenticationSuccessHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -21,7 +22,8 @@ class UserAuthenticationFilterTest {
         spyUserAuthenticationManager = new SpyUserAuthenticationManager();
         userAuthenticationFilter = new UserAuthenticationFilter(
                 spyUserAuthenticationFactory,
-                spyUserAuthenticationManager
+                spyUserAuthenticationManager,
+                new SpyUserAuthenticationSuccessHandler()
         );
     }
 

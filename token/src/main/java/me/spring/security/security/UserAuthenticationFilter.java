@@ -2,6 +2,7 @@ package me.spring.security.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +15,12 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
     private final UserAuthenticationTokenFactory userAuthenticationTokenFactory;
     private final UserAuthenticationManager userAuthenticationManagerImpl;
 
-    public UserAuthenticationFilter(UserAuthenticationTokenFactory userAuthenticationTokenFactory, UserAuthenticationManager userAuthenticationManagerImpl) {
+    public UserAuthenticationFilter(UserAuthenticationTokenFactory userAuthenticationTokenFactory, UserAuthenticationManager authenticationManager, AuthenticationSuccessHandler userAuthenticationSuccessHandler) {
         this.userAuthenticationTokenFactory = userAuthenticationTokenFactory;
-        this.userAuthenticationManagerImpl = userAuthenticationManagerImpl;
+        this.userAuthenticationManagerImpl = authenticationManager;
+        setAuthenticationManager(authenticationManager);
+        setFilterProcessesUrl("/login");
+        setAuthenticationSuccessHandler(userAuthenticationSuccessHandler);
     }
 
     @Override

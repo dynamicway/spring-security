@@ -1,6 +1,8 @@
 package me.spring.security.security;
 
-public interface UserAuthenticationManager {
+import org.springframework.security.authentication.AuthenticationManager;
+
+public interface UserAuthenticationManager extends AuthenticationManager {
 
     UserAuthenticationToken authenticate(UserAuthenticationToken authenticationToken);
 

@@ -1,6 +1,8 @@
 package me.spring.security.security;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,9 +11,12 @@ public class UserAuthenticationManagerImpl implements UserAuthenticationManager 
 
     private final UserAuthenticationProvider userAuthenticationProvider;
 
-    @Override
     public UserAuthenticationToken authenticate(UserAuthenticationToken authenticationToken) {
         return userAuthenticationProvider.authenticate(authenticationToken);
     }
 
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        return null;
+    }
 }
