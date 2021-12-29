@@ -1,9 +1,7 @@
 package me.spring.security.security;
 
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.JwsHeader;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.impl.Base64UrlCodec;
 import lombok.RequiredArgsConstructor;
 import me.spring.security.util.TimeProvider;
 import org.springframework.stereotype.Component;
@@ -16,6 +14,9 @@ import java.util.Map;
 public class JwtTokenManagerImpl implements JwtTokenManager {
 
     private final String SECRET_KEY = "THIS_IS_SECRET_KEY";
+    private final JwtParser jwtParser = Jwts.parser()
+            .setSigningKey(Base64UrlCodec.BASE64.decode(SECRET_KEY));
+
     private final TimeProvider timeProvider;
 
     @Override
@@ -33,6 +34,8 @@ public class JwtTokenManagerImpl implements JwtTokenManager {
 
     @Override
     public void valid(String token) {
+        jwtParser.parseClaimsJws(token);
+        if (!jwtParser.isSigned(token)) throw new RuntimeException();
     }
 
     private Map<String, Object> createHeader() {

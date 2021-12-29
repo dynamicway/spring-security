@@ -33,7 +33,7 @@ class UserAuthenticationSuccessHandlerTest {
         MockHttpServletResponse givenHttpResponse = new MockHttpServletResponse();
         spyJwtTokenManager.generateJwt_returns = "givenJwtToken";
         userAuthenticationSuccessHandler.onAuthenticationSuccess(new MockHttpServletRequest(), givenHttpResponse, givenUserAuthenticationToken);
-        assertThat(givenHttpResponse.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("BEARER givenJwtToken");
+        assertThat(givenHttpResponse.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("Bearer givenJwtToken");
     }
 
 }

@@ -37,14 +37,16 @@ class JwtTokenManagerTest {
                 "password",
                 LocalDate.of(2021, 12, 24)
         );
+
+        givenUserEntity.getRoles().add(new UserRoleEntity(1L, UserRoleEntity.Role.USER));
+        givenUserAuthenticationToken.applyPrincipal(givenUserEntity);
+
         Date given_expiration = new Date(2000000000000L);
         Date given_issuedAt = new Date(2000100000000L);
 
         spyTimeProvider.now_returns = given_issuedAt;
         spyTimeProvider.nextWeek_returns = given_expiration;
-        givenUserEntity.getRoles().add(new UserRoleEntity(1L, UserRoleEntity.Role.USER));
 
-        givenUserAuthenticationToken.applyPrincipal(givenUserEntity);
         String generateJwt_returns = jwtTokenManager.generateJwt(givenUserAuthenticationToken);
 
         Jws<Claims> claims = jwtParser.parseClaimsJws(generateJwt_returns);
