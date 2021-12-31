@@ -1,13 +1,30 @@
 package me.spring.security.security.oauth;
 
 import me.spring.security.user.UserEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DefaultOAuth2UserFactoryImpl implements DefaultOAuth2UserFactory {
 
     @Override
     public DefaultOAuth2User of(UserEntity userEntity) {
-        return null;
+        return new DefaultOAuth2User(
+                userEntity.getRoles()
+                        .stream()
+                        .map(userRoleEntity -> new SimpleGrantedAuthority(userRoleEntity.getRole().name()))
+                        .collect(Collectors.toSet()),
+                Map.of(
+                        "nickname", Optional.ofNullable(userEntity.getNickName()),
+                        "birth", Optional.ofNullable(userEntity.getBirth()),
+                        "thumbnail", Optional.ofNullable(userEntity.getThumbnail()),
+                        userEntity.getResourceServer().getNameAttribute(), userEntity.getResourceServerId()
+                ),
+                userEntity.getResourceServer().getNameAttribute()
+        );
     }
 
 }
