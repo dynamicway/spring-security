@@ -26,6 +26,9 @@ public class UserEntity {
     @Enumerated(STRING)
     private ResourceServer resourceServer;
 
+    @Column(name = "resource_server_id")
+    private long resourceServerId;
+
     @OneToMany
     private final List<UserRoleEntity> roles = new ArrayList<>();
 
