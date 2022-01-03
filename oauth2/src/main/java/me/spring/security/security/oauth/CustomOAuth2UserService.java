@@ -1,6 +1,9 @@
 package me.spring.security.security.oauth;
 
 import lombok.RequiredArgsConstructor;
+import me.spring.security.user.UserEntity;
+import me.spring.security.user.UserRepository;
+import me.spring.security.user.UserRoleEntity;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -8,22 +11,35 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final DefaultOAuth2UserService defaultOAuth2UserService;
+    private final UserRepository userRepository;
+    private final DefaultOAuth2UserFactory defaultOAuth2UserFactory;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
-        // db를 조회하여 정보에 맞는 defaultOAuth2User 를 반환
-        // 유저가 회원가입이 돼있지 않다면 회원 가입 (권한은 일반 유저)
-        // attribute에 resource_server_id, resource_server_name, profile_image 를 넣어줌
-        // 위를 기반으로 DefaultOAuth2User 생성
-//        Map<String, Object> attributes = new DefaultOAuth2UserService().loadUser(userRequest).getAttributes();
-        return null;
+        OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
+        UserEntity userEntity = getOrSaveUserEntity(userRequest, oAuth2User);
+        return defaultOAuth2UserFactory.of(userEntity);
     }
 
+    private UserEntity getOrSaveUserEntity(OAuth2UserRequest userRequest, OAuth2User oAuth2User) {
+
+        ResourceServer resourceServer = ResourceServer.getResourceServer(userRequest.getClientRegistration().getRegistrationId());
+
+        String resourceServerId = oAuth2User.getAttribute(resourceServer.getNameAttribute());
+        return userRepository.findByResourceServerAndResourceServerId(resourceServer, resourceServerId)
+                .orElse(userRepository.save(new UserEntity(
+                        resourceServer,
+                        resourceServerId,
+                        oAuth2User.getAttribute(resourceServer.getThumbnail()),
+                        List.of(new UserRoleEntity(UserRoleEntity.Role.USER))
+                )));
+    }
 
 }

@@ -7,20 +7,21 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.util.Pair;
 
 import java.util.List;
 import java.util.Optional;
 
 public class SpyUserRepository implements UserRepository {
     public ResourceServer findByResourceServerAndResourceServerId_argumentsResourceServer;
-    public Long findByResourceServerAndResourceServerId_argumentsResourceServerId;
+    public String findByResourceServerAndResourceServerId_argumentsResourceServerId;
+    public Optional<UserEntity> findByResourceServerAndResourceServerId_returns;
+    public UserEntity save_arguments;
 
     @Override
-    public Optional<UserEntity> findByResourceServerAndResourceServerId(ResourceServer resourceServer, long resourceServerId) {
+    public Optional<UserEntity> findByResourceServerAndResourceServerId(ResourceServer resourceServer, String resourceServerId) {
         findByResourceServerAndResourceServerId_argumentsResourceServer = resourceServer;
         findByResourceServerAndResourceServerId_argumentsResourceServerId = resourceServerId;
-        return Optional.empty();
+        return findByResourceServerAndResourceServerId_returns;
     }
 
     @Override
@@ -75,6 +76,7 @@ public class SpyUserRepository implements UserRepository {
 
     @Override
     public <S extends UserEntity> S save(S entity) {
+        save_arguments = entity;
         return null;
     }
 
