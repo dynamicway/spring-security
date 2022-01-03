@@ -14,4 +14,13 @@ public enum ResourceServer {
     private final String nameAttribute;
     private final String thumbnail;
 
+    public static ResourceServer getResourceServer(String resourceServerName) {
+        switch (resourceServerName) {
+            case "kakao":
+                return KAKAO;
+            default:
+                throw new RuntimeException();
+        }
+    }
+
 }
