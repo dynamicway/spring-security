@@ -23,7 +23,7 @@ public class DefaultOAuth2UserFactoryImpl implements DefaultOAuth2UserFactory {
                         "nickname", Optional.ofNullable(userEntity.getNickName()),
                         "birth", Optional.ofNullable(userEntity.getBirth()),
                         "thumbnail", Optional.ofNullable(userEntity.getThumbnail()),
-                        userEntity.getResourceServer().getNameAttribute(), userEntity.getResourceServerId()
+                        userEntity.getResourceServer().getNameAttribute(), userEntity.getId()
                 ),
                 userEntity.getResourceServer().getNameAttribute()
         );
