@@ -12,6 +12,7 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.EnumType.*;
+import static javax.persistence.FetchType.*;
 
 @Entity(name = "USER")
 @Getter
@@ -37,7 +38,7 @@ public class UserEntity {
 
     private String thumbnail;
 
-    @OneToMany(cascade = PERSIST)
+    @OneToMany(cascade = PERSIST, fetch = EAGER)
     private final List<UserRoleEntity> roles = new ArrayList<>();
 
     public UserEntity(ResourceServer resourceServer, String resourceServerId, String thumbnail, List<UserRoleEntity> roles) {
