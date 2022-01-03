@@ -3,11 +3,13 @@ package me.spring.security.security.oauth;
 import me.spring.security.user.UserEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class DefaultOAuth2UserFactoryImpl implements DefaultOAuth2UserFactory {
 
     @Override
