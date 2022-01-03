@@ -16,4 +16,10 @@ public class TimeProviderImpl implements TimeProvider {
     public Date nextWeek() {
         return new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 7));
     }
+
+    @Override
+    public Date tomorrow() {
+        return new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24));
+    }
+
 }

@@ -8,4 +8,6 @@ public interface TimeProvider {
 
     Date nextWeek();
 
+    Date tomorrow();
+
 }
