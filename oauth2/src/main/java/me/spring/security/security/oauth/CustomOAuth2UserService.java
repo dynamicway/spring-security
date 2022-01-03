@@ -32,7 +32,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         ResourceServer resourceServer = ResourceServer.getResourceServer(userRequest.getClientRegistration().getRegistrationId());
 
-        String resourceServerId = oAuth2User.getAttribute(resourceServer.getNameAttribute());
+        String resourceServerId = oAuth2User.getAttribute(resourceServer.getNameAttribute()).toString();
         return userRepository.findByResourceServerAndResourceServerId(resourceServer, resourceServerId)
                 .orElse(userRepository.save(new UserEntity(
                         resourceServer,
